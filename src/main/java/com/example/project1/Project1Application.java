@@ -1,5 +1,6 @@
 package com.example.project1;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,7 @@ public class Project1Application {
 	}
 
 	@Bean
-	public WebMvcConfigurer corsMappingConfigurer() {
+	WebMvcConfigurer corsMappingConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
@@ -24,6 +25,11 @@ public class Project1Application {
 						.allowedMethods("GET", "POST", "PUT", "DELETE");
 			}
 		};
+	}
+
+	@Bean
+	ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }
