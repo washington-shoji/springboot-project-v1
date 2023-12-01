@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event saveEvent(Event request) {
         try {
-            if (repository.existByTitle(request.getTitle())) {
+            if (repository.existsByTitle(request.getTitle())) {
                 throw new IllegalArgumentException(
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
@@ -55,7 +55,7 @@ public class EventServiceImpl implements EventService {
         try {
             Event existingEvent = findEventById(request.getId());
             if (!existingEvent.getTitle().equals(request.getTitle())
-                    && !repository.existByTitle(request.getTitle())) {
+                    && repository.existsByTitle(request.getTitle())) {
                 throw new IllegalArgumentException(
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
