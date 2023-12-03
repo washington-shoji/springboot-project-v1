@@ -1,6 +1,7 @@
 package com.example.project1.services.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event findById(Long id) {
+    public Event findById(UUID id) {
         return findEventById(id);
     }
 
@@ -51,7 +52,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event updateEvent(Long id, Event request) {
+    public Event updateEvent(UUID id, Event request) {
         try {
             Event existingEvent = findEventById(request.getId());
             if (!existingEvent.getTitle().equals(request.getTitle())
@@ -71,12 +72,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(Long id) {
+    public void deleteEvent(UUID id) {
         Event existEvent = findEventById(id);
         repository.deleteById(existEvent.getId());
     }
 
-    private Event findEventById(Long id) {
+    private Event findEventById(UUID id) {
         Event existEvent = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Could not find an existing event."));
         return existEvent;
