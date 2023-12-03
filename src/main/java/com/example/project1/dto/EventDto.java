@@ -1,15 +1,17 @@
 package com.example.project1.dto;
 
+import java.util.UUID;
+
 public class EventDto {
-    private Long id;
+    private UUID id;
     private String title;
     private String shortDescription;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
