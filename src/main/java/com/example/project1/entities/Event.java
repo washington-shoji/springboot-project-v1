@@ -1,5 +1,6 @@
 package com.example.project1.entities;
 
+import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -21,6 +22,12 @@ public class Event {
 
     @Column(nullable = false)
     String shortDescription;
+
+    @Column(nullable = false)
+    Date eventDate;
+
+    @Column(nullable = false)
+    Date eventRegistrationCloseDate;
 
     public UUID getId() {
         return id;
@@ -44,6 +51,22 @@ public class Event {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public Date getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public Date getEventRegistrationCloseDate() {
+        return eventRegistrationCloseDate;
+    }
+
+    public void setEventRegistrationCloseDate(Date eventRegistrationClose) {
+        this.eventRegistrationCloseDate = eventRegistrationClose;
     }
 
 }
