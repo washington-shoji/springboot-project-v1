@@ -5,12 +5,14 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.project1.entities.Event;
 import com.example.project1.repositories.EventRepository;
 import com.example.project1.services.EventService;
 
 @Service
+@Transactional(readOnly = true)
 public class EventServiceImpl implements EventService {
     private final EventRepository repository;
 
@@ -31,6 +33,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event saveEvent(Event request) {
         try {
             if (repository.existsByTitle(request.getTitle())) {
@@ -41,6 +44,8 @@ public class EventServiceImpl implements EventService {
             Event event = new Event();
             event.setTitle(request.getTitle());
             event.setShortDescription(request.getShortDescription());
+            event.setEventDate(request.getEventDate());
+            event.setEventRegistrationCloseDate(request.getEventRegistrationCloseDate());
 
             Event savedEvent = repository.save(event);
 
@@ -52,6 +57,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event updateEvent(UUID id, Event request) {
         try {
             Event existingEvent = findEventById(request.getId());
@@ -63,6 +69,8 @@ public class EventServiceImpl implements EventService {
 
             existingEvent.setTitle(request.getTitle());
             existingEvent.setShortDescription(request.getShortDescription());
+            existingEvent.setEventDate(request.getEventDate());
+            existingEvent.setEventRegistrationCloseDate(request.getEventRegistrationCloseDate());
 
             Event updatedEvent = repository.save(existingEvent);
             return updatedEvent;
@@ -72,6 +80,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(UUID id) {
         Event existEvent = findEventById(id);
         repository.deleteById(existEvent.getId());
