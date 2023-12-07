@@ -1,6 +1,5 @@
 package com.example.project1.entities;
 
-import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -24,10 +23,13 @@ public class Event {
     String shortDescription;
 
     @Column(nullable = false)
-    Date eventDate;
+    String eventImage;
 
     @Column(nullable = false)
-    Date eventRegistrationCloseDate;
+    String eventDate;
+
+    @Column(nullable = false)
+    String eventRegistrationCloseDate;
 
     public UUID getId() {
         return id;
@@ -53,20 +55,35 @@ public class Event {
         this.shortDescription = shortDescription;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
-    public Date getEventRegistrationCloseDate() {
+    public String getEventRegistrationCloseDate() {
         return eventRegistrationCloseDate;
     }
 
-    public void setEventRegistrationCloseDate(Date eventRegistrationClose) {
+    public void setEventRegistrationCloseDate(String eventRegistrationClose) {
         this.eventRegistrationCloseDate = eventRegistrationClose;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    @Override
+    public String toString() {
+        return "Event [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", eventImage="
+                + eventImage + ", eventDate=" + eventDate + ", eventRegistrationCloseDate=" + eventRegistrationCloseDate
+                + "]";
     }
 
 }
