@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.project1.entities.Event;
 import com.example.project1.repositories.EventRepository;
@@ -15,10 +16,14 @@ import com.example.project1.services.EventService;
 @Transactional(readOnly = true)
 public class EventServiceImpl implements EventService {
     private final EventRepository repository;
+    private final MediaFileUploadServiceImpl mediaFileUploadService;
 
     @Autowired
-    public EventServiceImpl(EventRepository repository) {
+    public EventServiceImpl(
+            EventRepository repository,
+            MediaFileUploadServiceImpl mediaFileUploadService) {
         this.repository = repository;
+        this.mediaFileUploadService = mediaFileUploadService;
     }
 
     @Override
@@ -34,16 +39,19 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public Event saveEvent(Event request) {
+    public Event saveEvent(Event request, MultipartFile multipartFile) {
         try {
             if (repository.existsByTitle(request.getTitle())) {
                 throw new IllegalArgumentException(
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
 
+            String imageUrl = mediaFileUploadService.uploadFile(multipartFile);
+
             Event event = new Event();
             event.setTitle(request.getTitle());
             event.setShortDescription(request.getShortDescription());
+            event.setEventImage(imageUrl);
             event.setEventDate(request.getEventDate());
             event.setEventRegistrationCloseDate(request.getEventRegistrationCloseDate());
 
@@ -58,7 +66,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public Event updateEvent(UUID id, Event request) {
+    public Event updateEvent(UUID id, Event request, MultipartFile multipartFile) {
         try {
             Event existingEvent = findEventById(request.getId());
             if (!existingEvent.getTitle().equals(request.getTitle())
@@ -66,6 +74,8 @@ public class EventServiceImpl implements EventService {
                 throw new IllegalArgumentException(
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
+
+            String imageUrl = mediaFileUploadService.uploadFile(multipartFile);
 
             existingEvent.setTitle(request.getTitle());
             existingEvent.setShortDescription(request.getShortDescription());
