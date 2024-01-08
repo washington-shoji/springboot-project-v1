@@ -23,7 +23,10 @@ public class Event {
     String shortDescription;
 
     @Column(nullable = false)
-    String eventImage;
+    String eventImageUrl;
+
+    @Column(nullable = false)
+    String eventImagePublicId;
 
     @Column(nullable = false)
     String eventDate;
@@ -71,19 +74,27 @@ public class Event {
         this.eventRegistrationCloseDate = eventRegistrationClose;
     }
 
-    public String getEventImage() {
-        return eventImage;
+    public String getEventImageUrl() {
+        return eventImageUrl;
     }
 
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
+    public void setEventImageUrl(String eventImage) {
+        this.eventImageUrl = eventImage;
+    }
+
+    public String getEventImagePublicId() {
+        return eventImagePublicId;
+    }
+
+    public void setEventImagePublicId(String eventImagePublicId) {
+        this.eventImagePublicId = eventImagePublicId;
     }
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", eventImage="
-                + eventImage + ", eventDate=" + eventDate + ", eventRegistrationCloseDate=" + eventRegistrationCloseDate
-                + "]";
+        return "Event [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", eventImageUrl="
+                + eventImageUrl + ", eventImagePublicId=" + eventImagePublicId + ", eventDate=" + eventDate
+                + ", eventRegistrationCloseDate=" + eventRegistrationCloseDate + "]";
     }
 
 }
