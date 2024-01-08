@@ -58,7 +58,7 @@ public class EventController {
 
     @PutMapping("/update")
     EventDto upddateEvent(@RequestParam(value = "id") UUID id, @ModelAttribute EventDto eventDto,
-            @RequestParam("image") MultipartFile multipartFile) {
+            @RequestParam(value = "image", required = false) MultipartFile multipartFile) {
         if (!Objects.equals(id, eventDto.getId())) {
             throw new IllegalArgumentException("Ids don't match");
         }
