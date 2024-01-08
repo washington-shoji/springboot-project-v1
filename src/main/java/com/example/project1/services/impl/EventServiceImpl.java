@@ -1,6 +1,7 @@
 package com.example.project1.services.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,15 @@ public class EventServiceImpl implements EventService {
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
 
-            String imageUrl = mediaFileUploadService.uploadFile(multipartFile);
+            Map imageData = mediaFileUploadService.uploadFile(multipartFile);
+
+            System.out.println(imageData);
 
             Event event = new Event();
             event.setTitle(request.getTitle());
             event.setShortDescription(request.getShortDescription());
-            event.setEventImage(imageUrl);
+            event.setEventImageUrl(imageData.get("url").toString());
+            event.setEventImagePublicId(imageData.get("public_id").toString());
             event.setEventDate(request.getEventDate());
             event.setEventRegistrationCloseDate(request.getEventRegistrationCloseDate());
 
@@ -75,7 +79,12 @@ public class EventServiceImpl implements EventService {
                         "Event Title " + request.getTitle() + " already exists, please select another title");
             }
 
-            String imageUrl = mediaFileUploadService.uploadFile(multipartFile);
+            if (multipartFile != null) {
+                mediaFileUploadService.deletImage(existingEvent.getEventImagePublicId());
+
+                Map imageData = mediaFileUploadService.uploadFile(multipartFile);
+                existingEvent.setEventImageUrl(imageData.get("url").toString());
+            }
 
             existingEvent.setTitle(request.getTitle());
             existingEvent.setShortDescription(request.getShortDescription());
