@@ -6,7 +6,8 @@ public class EventDto {
     private UUID id;
     private String title;
     private String shortDescription;
-    private String eventImage;
+    private String eventImageUrl;
+    private String eventImagePublicId;
     private String eventDate;
     private String eventRegistrationCloseDate;
 
@@ -50,19 +51,27 @@ public class EventDto {
         this.eventRegistrationCloseDate = eventRegistrationCloseDate;
     }
 
-    public String getEventImage() {
-        return eventImage;
+    public String getEventImageUrl() {
+        return eventImageUrl;
     }
 
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
+    public void setEventImageUrl(String eventImage) {
+        this.eventImageUrl = eventImage;
+    }
+
+    public String getEventImagePublicId() {
+        return eventImagePublicId;
+    }
+
+    public void setEventImagePublicId(String eventImagePublicId) {
+        this.eventImagePublicId = eventImagePublicId;
     }
 
     @Override
     public String toString() {
-        return "EventDto [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", eventImage="
-                + eventImage + ", eventDate=" + eventDate + ", eventRegistrationCloseDate=" + eventRegistrationCloseDate
-                + "]";
+        return "EventDto [id=" + id + ", title=" + title + ", shortDescription=" + shortDescription + ", eventImageUrl="
+                + eventImageUrl + ", eventImagePublicId=" + eventImagePublicId + ", eventDate=" + eventDate
+                + ", eventRegistrationCloseDate=" + eventRegistrationCloseDate + "]";
     }
 
 }
